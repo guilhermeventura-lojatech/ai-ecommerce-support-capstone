@@ -1,7 +1,7 @@
 # Backend
 
-Etapa 1 do MVP: API FastAPI, regras deterministicas baseadas na FAQ ficticia e
-escalonamento humano simulado. Classificacao ML e LLM possuem apenas contratos
-para implementacao futura e nao sao executados.
+Etapa 2 do MVP: API FastAPI, regras deterministicas baseadas na FAQ ficticia,
+classificador local TF-IDF + LogisticRegression e escalonamento humano simulado.
+O contrato de LLM permanece sem implementacao e nao e executado.
 
 O ponto de entrada da aplicacao e `backend.app.main:app`.

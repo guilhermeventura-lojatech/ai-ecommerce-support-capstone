@@ -1,0 +1,126 @@
+id,mensagem,intencao
+entrega_001,"Meu pacote ainda nao apareceu e a data combinada ja passou",entrega
+entrega_002,"A transportadora diz que saiu para entrega mas nao recebi nada",entrega
+entrega_003,"Gostaria de saber por onde anda a minha encomenda",entrega
+entrega_004,"O pedido esta parado no centro de distribuicao faz dias",entrega
+entrega_005,"A previsao mudou e minha compra continua sem chegar",entrega
+entrega_006,"Recebi aviso de entregue mas nao encontrei o pacote",entrega
+entrega_007,"Minha mercadoria veio para outra cidade no acompanhamento",entrega
+entrega_008,"Quanto tempo falta para a encomenda chegar aqui",entrega
+entrega_009,"O codigo de rastreamento nao mostra nenhuma atualizacao",entrega
+entrega_010,"Preciso acompanhar o envio da compra que fiz ontem",entrega
+entrega_011,"A entrega esta atrasada e preciso do produto para amanha",entrega
+entrega_012,"Onde posso consultar o trajeto do meu pedido",entrega
+entrega_013,"Minha caixa voltou para o remetente sem tentativa de entrega",entrega
+entrega_014,"O entregador nao encontrou meu endereco e agora",entrega
+entrega_015,"Quero confirmar a previsao de chegada da mercadoria",entrega
+entrega_016,"Consta uma tentativa de entrega que nunca aconteceu",entrega
+entrega_017,"Ainda nao mandaram o codigo para acompanhar o envio",entrega
+entrega_018,"Meu pedido foi despachado mas sumiu durante o transporte",entrega
+entrega_019,"A encomenda chegou incompleta em duas caixas",entrega
+entrega_020,"Em qual etapa do transporte esta a minha compra",entrega
+entrega_021,"O prazo de entrega terminou na semana passada",entrega
+entrega_022,"Quero saber se o pacote ja saiu do deposito",entrega
+entrega_023,"A transportadora reteve minha encomenda e nao explicou",entrega
+entrega_024,"O acompanhamento informa endereco incorreto para entrega",entrega
+entrega_025,"Comprei pela internet e preciso localizar o envio",entrega
+troca_001,"O tenis ficou apertado e preciso de outro tamanho",troca
+troca_002,"A camiseta veio com uma cor diferente da escolhida",troca
+troca_003,"Posso substituir o produto que recebi por outro modelo",troca
+troca_004,"Minha compra chegou com defeito e quero fazer a troca",troca
+troca_005,"Ganhei o item de presente mas gostaria de mudar o tamanho",troca
+troca_006,"Recebi uma peca errada dentro da embalagem",troca
+troca_007,"Como devolvo este produto para escolher outro",troca
+troca_008,"A numeracao nao serviu e preciso trocar na loja",troca
+troca_009,"O aparelho veio quebrado e quero uma unidade nova",troca
+troca_010,"Existe algum prazo para substituir uma mercadoria",troca
+troca_011,"Quero mudar o sabor do produto que comprei",troca
+troca_012,"Mandaram o modelo antigo em vez do que estava no anuncio",troca
+troca_013,"A roupa ficou grande demais e desejo outra numeracao",troca
+troca_014,"Preciso enviar de volta um item com avaria",troca
+troca_015,"O produto nao era o que eu esperava e quero outro",troca
+troca_016,"Como funciona a troca de compras feitas pelo site",troca
+troca_017,"A embalagem estava certa mas o conteudo veio errado",troca
+troca_018,"Quero substituir somente uma das pecas do conjunto",troca
+troca_019,"Recebi dois itens iguais e faltou o modelo diferente",troca
+troca_020,"Da para trocar um presente sem a nota impressa",troca
+troca_021,"O material do produto apresentou defeito no primeiro uso",troca
+troca_022,"Quais sao as condicoes para devolver e pegar outro item",troca
+troca_023,"Comprei tamanho medio mas preciso do tamanho grande",troca
+troca_024,"A estampa recebida nao corresponde a foto da compra",troca
+troca_025,"Preciso substituir uma mercadoria que veio danificada",troca
+reembolso_001,"Cancelei a compra e ainda nao recebi meu dinheiro",reembolso
+reembolso_002,"Quando o valor pago volta para o meu cartao",reembolso
+reembolso_003,"A devolucao foi aceita mas o estorno nao apareceu",reembolso
+reembolso_004,"Quero receber de volta o que paguei pelo produto",reembolso
+reembolso_005,"Meu pedido nao foi enviado e preciso do ressarcimento",reembolso
+reembolso_006,"O credito da compra cancelada ainda nao caiu",reembolso
+reembolso_007,"Como acompanho a devolucao do valor no banco",reembolso
+reembolso_008,"Paguei no pix e quero saber sobre a restituicao",reembolso
+reembolso_009,"O estorno veio com um valor menor que a cobranca",reembolso
+reembolso_010,"Ja devolvi a mercadoria e aguardo o dinheiro",reembolso
+reembolso_011,"Em quantos dias recebo o ressarcimento da compra",reembolso
+reembolso_012,"A fatura fechou antes de aparecer o credito do estorno",reembolso
+reembolso_013,"Solicitei meu dinheiro de volta e nao tive retorno",reembolso
+reembolso_014,"Quero confirmar se a loja iniciou a devolucao do pagamento",reembolso
+reembolso_015,"O pedido foi cancelado mas a cobranca continua no cartao",reembolso
+reembolso_016,"Preciso do comprovante de que fizeram o estorno",reembolso
+reembolso_017,"A loja aprovou a devolucao mas nao restituiu o valor",reembolso
+reembolso_018,"Como funciona o reembolso de uma compra feita no boleto",reembolso
+reembolso_019,"Meu banco nao localizou o credito prometido pela loja",reembolso
+reembolso_020,"Recebi somente parte do valor que deveria voltar",reembolso
+reembolso_021,"A compra duplicada sera ressarcida quando",reembolso
+reembolso_022,"Quero saber o prazo para o dinheiro retornar a conta",reembolso
+reembolso_023,"Fiz a devolucao e ainda estou esperando o pagamento voltar",reembolso
+reembolso_024,"Nao encontrei o estorno na minha fatura deste mes",reembolso
+reembolso_025,"Preciso recuperar o valor de um item que devolvi",reembolso
+pagamento_001,"Meu cartao foi recusado mesmo tendo limite disponivel",pagamento
+pagamento_002,"O pix venceu antes que eu conseguisse concluir a compra",pagamento
+pagamento_003,"Apareceu uma cobranca duplicada no meu cartao",pagamento
+pagamento_004,"Nao consigo gerar um novo boleto para pagar o pedido",pagamento
+pagamento_005,"O site nao confirma o pagamento que ja realizei",pagamento
+pagamento_006,"Quais formas de pagamento posso usar nesta compra",pagamento
+pagamento_007,"A transacao falhou quando digitei os dados do cartao",pagamento
+pagamento_008,"Paguei pelo banco mas o pedido continua aguardando pagamento",pagamento
+pagamento_009,"Posso dividir o valor em dois cartoes diferentes",pagamento
+pagamento_010,"O codigo pix nao funciona no aplicativo do banco",pagamento
+pagamento_011,"Minha compra foi cobrada mais de uma vez",pagamento
+pagamento_012,"O boleto esta com a data de vencimento errada",pagamento
+pagamento_013,"Quero alterar a forma de pagamento antes da confirmacao",pagamento
+pagamento_014,"A parcela exibida no carrinho mudou na hora de pagar",pagamento
+pagamento_015,"Meu banco aprovou mas a loja recusou a transacao",pagamento
+pagamento_016,"Consigo pagar uma parte no pix e outra no cartao",pagamento
+pagamento_017,"Digitei o codigo de seguranca e o pagamento deu erro",pagamento
+pagamento_018,"A confirmacao do boleto ainda esta pendente",pagamento
+pagamento_019,"Preciso da segunda via para quitar a compra",pagamento
+pagamento_020,"O desconto prometido nao foi aplicado no pagamento",pagamento
+pagamento_021,"Nao reconheco esta cobranca feita pela loja",pagamento
+pagamento_022,"A compra nao passa quando escolho parcelamento",pagamento
+pagamento_023,"Meu pagamento instantaneo foi debitado mas nao confirmado",pagamento
+pagamento_024,"Quero entender por que a transacao foi negada",pagamento
+pagamento_025,"O valor cobrado ficou diferente do total do carrinho",pagamento
+cancelamento_001,"Quero desistir da compra antes que ela seja enviada",cancelamento
+cancelamento_002,"Como faco para cancelar o pedido que acabei de criar",cancelamento
+cancelamento_003,"Comprei por engano e preciso interromper o processamento",cancelamento
+cancelamento_004,"Nao quero mais receber essa encomenda",cancelamento
+cancelamento_005,"Preciso cancelar somente um item do meu carrinho",cancelamento
+cancelamento_006,"O pedido ainda esta separando e quero desistir",cancelamento
+cancelamento_007,"Posso interromper uma compra que ja foi aprovada",cancelamento
+cancelamento_008,"Mudei de ideia e nao desejo continuar com o pedido",cancelamento
+cancelamento_009,"Quero remover a compra feita hoje da minha conta",cancelamento
+cancelamento_010,"Fiz dois pedidos iguais e preciso cancelar um deles",cancelamento
+cancelamento_011,"Nao autorizei essa compra e quero cancela-la",cancelamento
+cancelamento_012,"Como impedir o envio de uma mercadoria comprada agora",cancelamento
+cancelamento_013,"Gostaria de encerrar este pedido antes da entrega",cancelamento
+cancelamento_014,"Selecionei o produto errado e quero desfazer a compra",cancelamento
+cancelamento_015,"Ainda da tempo de cancelar antes de sair do estoque",cancelamento
+cancelamento_016,"Quero excluir um pedido que esta em preparacao",cancelamento
+cancelamento_017,"A compra foi confirmada mas eu desejo desistir",cancelamento
+cancelamento_018,"Preciso parar o envio porque coloquei o endereco errado",cancelamento
+cancelamento_019,"Pode cancelar a encomenda que fiz pela madrugada",cancelamento
+cancelamento_020,"Nao vou precisar mais do item que comprei",cancelamento
+cancelamento_021,"Quero anular a solicitacao antes que seja faturada",cancelamento
+cancelamento_022,"Como retiro um produto de um pedido ja fechado",cancelamento
+cancelamento_023,"Desejo desfazer a compra sem esperar a entrega",cancelamento
+cancelamento_024,"O pedido foi criado em duplicidade e quero encerrar um",cancelamento
+cancelamento_025,"Preciso interromper a compra realizada pelo aplicativo",cancelamento

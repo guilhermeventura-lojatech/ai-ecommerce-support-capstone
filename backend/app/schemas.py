@@ -40,6 +40,10 @@ class AuditRecord(BaseModel):
     duration_ms: float = Field(ge=0)
     rule_id: str | None = None
     knowledge_source: str | None = None
+    model_version: str | None = None
+    ml_confidence: float | None = Field(default=None, ge=0, le=1)
+    ml_known_token_ratio: float | None = Field(default=None, ge=0, le=1)
+    ml_fallback_reason: str | None = None
 
 
 class SupportMessageResponse(BaseModel):

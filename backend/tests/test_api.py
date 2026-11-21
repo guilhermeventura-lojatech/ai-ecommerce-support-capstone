@@ -58,3 +58,20 @@ def test_exchange_is_escalated_without_inventing_policy() -> None:
     assert body["requires_human"] is True
     assert "nao esta disponivel" in body["answer"].casefold()
 
+
+def test_ml_intent_is_recorded_but_escalated_without_policy() -> None:
+    response = client.post(
+        "/support/messages",
+        json={"message": "Meu cartao foi recusado mesmo com limite"},
+    )
+
+    assert response.status_code == 200
+    body = response.json()
+    assert body["route"] == "humano"
+    assert body["intent"] == "pagamento"
+    assert body["requires_human"] is True
+    assert body["audit"]["reason_code"] == "ML_INTENT_WITHOUT_AUTHORIZED_RESPONSE"
+    assert body["audit"]["model_version"].startswith("tfidf-logreg-")
+    assert body["audit"]["ml_confidence"] >= 0.35
+    assert body["audit"]["ml_fallback_reason"] == "NO_AUTHORIZED_POLICY"
+

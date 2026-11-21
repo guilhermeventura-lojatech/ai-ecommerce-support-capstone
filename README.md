@@ -23,11 +23,10 @@ Projeto acadêmico de avaliação e prototipação de alternativas de IA para at
 - `examples/` — exemplos de solicitações sintéticas.
 
 ## Estado atual
-**Etapa 1: fundação/backend.** Há uma API local com regras determinísticas
-baseadas exclusivamente na FAQ fictícia e escalonamento humano simulado. Ainda
-não há classificação ML, integração com LLM, consulta a sistemas de pedidos ou
-resultados de experimentos. Políticas de exemplo e métricas futuras não
-representam dados reais da empresa.
+**Etapa 2: classificação de intenções.** A API preserva as regras determinísticas
+e usa um baseline local TF-IDF + regressão logística quando nenhuma regra se
+aplica. Previsões de baixa confiança, fora de escopo ou sem resposta autorizada
+são escalonadas. Não há LLM, frontend ou consulta a sistemas reais.
 
 ## Próximos passos
 - Implementar motor de regras e casos de teste.
@@ -68,10 +67,27 @@ Para executar os testes automatizados:
 python -m pytest
 ```
 
-## Limites da etapa 1
+Para reproduzir as métricas e a matriz de confusão do experimento:
+
+```powershell
+python scripts/evaluate_ml.py
+```
+
+Os limiares experimentais podem ser configurados antes de iniciar a API:
+
+```powershell
+$env:ML_CONFIDENCE_THRESHOLD = "0.35"
+$env:ML_MIN_KNOWN_TOKEN_RATIO = "0.20"
+```
+
+Metodologia, resultados observados e limitações estão em
+`docs/avaliacao-ml.md`.
+
+## Limites atuais
 
 - Apenas orientação genérica de rastreio possui resposta automática autorizada.
 - Trocas e reembolsos são reconhecidos, mas escalonados por falta de política autorizada.
-- Demais casos são escalonados sem classificação automática.
+- O classificador identifica cinco intenções, mas não autoriza respostas.
 - Não existe consulta a pedidos, pagamentos, clientes ou serviços externos.
-- Não são usados dados pessoais reais, chaves de API, ML ou LLM.
+- Não são usados dados pessoais reais, chaves de API ou LLM.
+- As probabilidades do modelo não são calibradas e o dataset é sintético.
