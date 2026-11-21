@@ -33,6 +33,12 @@ class SupportMessageRequest(BaseModel):
         return value
 
 
+class SourceReference(BaseModel):
+    source_id: str
+    source_path: str
+    score: float = Field(ge=0, le=1)
+
+
 class AuditRecord(BaseModel):
     correlation_id: UUID
     route: Route
@@ -44,6 +50,14 @@ class AuditRecord(BaseModel):
     ml_confidence: float | None = Field(default=None, ge=0, le=1)
     ml_known_token_ratio: float | None = Field(default=None, ge=0, le=1)
     ml_fallback_reason: str | None = None
+    sources: list[SourceReference] = Field(default_factory=list)
+    llm_provider: str | None = None
+    llm_model: str | None = None
+    llm_prompt_tokens: int | None = Field(default=None, ge=0)
+    llm_completion_tokens: int | None = Field(default=None, ge=0)
+    llm_total_tokens: int | None = Field(default=None, ge=0)
+    llm_estimated_cost_usd: float | None = Field(default=None, ge=0)
+    safety_result: str | None = None
 
 
 class SupportMessageResponse(BaseModel):

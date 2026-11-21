@@ -23,15 +23,15 @@ Projeto acadêmico de avaliação e prototipação de alternativas de IA para at
 - `examples/` — exemplos de solicitações sintéticas.
 
 ## Estado atual
-**Etapa 2: classificação de intenções.** A API preserva as regras determinísticas
-e usa um baseline local TF-IDF + regressão logística quando nenhuma regra se
-aplica. Previsões de baixa confiança, fora de escopo ou sem resposta autorizada
-são escalonadas. Não há LLM, frontend ou consulta a sistemas reais.
+**Etapa 3: recuperação e LLM controlado.** A API preserva regras e classificação,
+recupera trechos da FAQ autorizada por TF-IDF e possui integração opcional com
+LLM. A integração fica desligada por padrão e todo caso sem evidência verificável
+é escalonado. Não há frontend ou consulta a sistemas reais.
 
 ## Próximos passos
 - Implementar motor de regras e casos de teste.
 - Avaliar classificador de intenções sobre exemplos sintéticos.
-- Opcionalmente integrar LLM com documentação autorizada e saída segura.
+- Avaliar opcionalmente um LLM real autorizado, mantendo limites e saída segura.
 - Comparar desempenho, custos e riscos; registrar as evidências.
 
 ## Instalação e execução no Windows PowerShell
@@ -71,6 +71,7 @@ Para reproduzir as métricas e a matriz de confusão do experimento:
 
 ```powershell
 python scripts/evaluate_ml.py
+python scripts/compare_routing.py
 ```
 
 Os limiares experimentais podem ser configurados antes de iniciar a API:
@@ -81,7 +82,8 @@ $env:ML_MIN_KNOWN_TOKEN_RATIO = "0.20"
 ```
 
 Metodologia, resultados observados e limitações estão em
-`docs/avaliacao-ml.md`.
+`docs/avaliacao-ml.md`. Recuperação, integração opcional, controles e riscos do
+LLM estão em `docs/avaliacao-llm.md`.
 
 ## Limites atuais
 
@@ -89,5 +91,6 @@ Metodologia, resultados observados e limitações estão em
 - Trocas e reembolsos são reconhecidos, mas escalonados por falta de política autorizada.
 - O classificador identifica cinco intenções, mas não autoriza respostas.
 - Não existe consulta a pedidos, pagamentos, clientes ou serviços externos.
-- Não são usados dados pessoais reais, chaves de API ou LLM.
+- No modo padrão não são usados dados pessoais reais, chaves ou chamadas de LLM.
 - As probabilidades do modelo não são calibradas e o dataset é sintético.
+- O LLM é opcional e desligado por padrão; os testes não fazem chamadas externas.

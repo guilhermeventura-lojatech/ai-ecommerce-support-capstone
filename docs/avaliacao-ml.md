@@ -81,6 +81,35 @@ preditas, na ordem `entrega`, `troca`, `reembolso`, `pagamento`, `cancelamento`:
 Os numeros exatos, inclusive a matriz de validacao, sao emitidos em JSON pelo
 script de avaliacao.
 
+### Verificacao de consistencia
+
+A matriz de teste soma 19 observacoes. Sua diagonal soma 13 acertos:
+`3 + 3 + 2 + 3 + 2 = 13`. Portanto, `13 / 19 = 0,6842105263`, consistente
+com a accuracy registrada. As metricas originais acima foram preservadas.
+
+### Comparacao preliminar de roteamento
+
+O comando `python scripts/compare_routing.py` compara as abordagens no mesmo
+conjunto sintetico de teste, treinando o ML apenas nos 87 casos de treino.
+
+| Abordagem | Cobertos | Acertos | Accuracy total | Cobertura |
+| --- | ---: | ---: | ---: | ---: |
+| Regras isoladas | 4/19 | 3/19 | 0,158 | 0,211 |
+| Regras + ML com thresholds seguros | 4/19 | 3/19 | 0,158 | 0,211 |
+| Regras + ML bruto, apenas diagnostico | 19/19 | 12/19 | 0,632 | 1,000 |
+
+Com o limiar experimental de 0,35 e o detector lexical de fora de escopo, todas
+as 15 mensagens nao cobertas por regras foram rejeitadas. Logo, neste pequeno
+teste, o ML **nao aumentou a cobertura segura observada**. Ignorar os thresholds
+aumentaria cobertura, mas reduziria a seguranca e nao representa a API. Alem
+disso, uma regra com precedencia alterou uma previsao que o ML isolado acertaria,
+fazendo o hibrido bruto obter 12 acertos, contra os 13 do classificador isolado.
+
+Essa comparacao nao mede resolucao automatizada: inclusive regras que reconhecem
+troca ou reembolso encaminham a humano por falta de politica autorizada. Ela usa
+somente 19 casos sinteticos, portanto nao sustenta conclusao causal ou de
+producao.
+
 ## Roteamento e limiares experimentais
 
 - `ML_CONFIDENCE_THRESHOLD=0.35`: abaixo desse valor, a intencao exposta pela API

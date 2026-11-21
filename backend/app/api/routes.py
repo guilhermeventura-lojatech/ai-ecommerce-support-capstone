@@ -1,10 +1,11 @@
 from fastapi import APIRouter, status
 
 from backend.app.schemas import HealthResponse, SupportMessageRequest, SupportMessageResponse
+from backend.app.llm.provider import create_optional_llm_provider
 from backend.app.services.router import SupportRouter
 
 router = APIRouter()
-support_router = SupportRouter()
+support_router = SupportRouter(llm_provider=create_optional_llm_provider())
 
 
 @router.get("/health", response_model=HealthResponse, status_code=status.HTTP_200_OK)
