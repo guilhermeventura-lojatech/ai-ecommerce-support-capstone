@@ -1,75 +1,151 @@
 # Micro-capstone M1D1 — Atendimento inteligente em e-commerce
 
-Projeto acadêmico de avaliação e prototipação de alternativas de IA para atendimento ao cliente.
+Projeto acadêmico da pós-graduação em Inteligência Artificial para avaliação de
+um caso de uso de atendimento ao cliente. O repositório demonstra uma
+arquitetura híbrida e rastreável que combina regras determinísticas,
+classificação de intenção por Machine Learning, recuperação lexical de
+conhecimento, integração opcional com LLM e escalonamento humano.
 
-## Contexto do caso
-- E-commerce de médio porte com aproximadamente **25 mil solicitações mensais**.
-- Atendimento atual realizado por pessoas, com tempo médio de resposta de **9 horas**.
-- Dúvidas frequentes: status do pedido, trocas, prazo de entrega e reembolso.
-- Objetivo: reduzir custo e tempo de resposta sem comprometer a qualidade.
+> **Aviso acadêmico:** todos os tickets, FAQs, rótulos e políticas usados na
+> implementação são sintéticos ou fictícios. Os únicos dados fornecidos pelo
+> caso são o volume aproximado de 25.000 solicitações mensais, o tempo médio
+> inicial de resposta de 9 horas e o atendimento 100% humano. Não há dados
+> pessoais, métricas reais de produção, CSAT, economia ou taxa de resolução.
 
-## Alternativas avaliadas
-1. Regras determinísticas e fluxos de atendimento.
-2. Classificador de intenções baseado em Machine Learning.
-3. Assistente baseado em LLM com fontes autorizadas.
+## Problema de negócio
 
-**Recomendação do caso:** arquitetura híbrida, com regras, classificação e LLM controlado, com escalonamento humano.
+O cenário descreve um e-commerce fictício com alto volume de suporte, resposta
+média de 9 horas, custo operacional elevado e atendimento integralmente humano.
+O objetivo é avaliar como reduzir tempo e custo sem comprometer qualidade,
+segurança, explicabilidade ou confiança.
 
-## Estrutura
-- `docs/` — análise, critérios, riscos e arquitetura.
-- `knowledge/` — exemplos **fictícios** de FAQs para futura prova de conceito.
-- `backend/` — API FastAPI, regras, ML, recuperação, integração opcional e testes.
-- `frontend/` — interface demonstrativa React + Vite + TypeScript.
-- `examples/` — exemplos de solicitações sintéticas.
+As alternativas analisadas são:
 
-## Estado atual
-**Etapa 4: experiência demonstrativa.** A API preserva regras, classificação,
-recuperação e integração opcional. O frontend oferece chat, explicabilidade,
-dashboard com resultados medidos e narrativa acadêmica. A LLM permanece
-desligada por padrão e não há consulta a sistemas reais.
+1. regras e fluxos determinísticos;
+2. classificação de intenções com Machine Learning;
+3. LLM controlado por fontes autorizadas;
+4. arquitetura híbrida com fallback humano.
 
-## Próximos passos
-- Validar a experiência com usuários e critérios acadêmicos.
-- Ampliar dados rotulados antes de recalibrar o classificador.
-- Substituir políticas fictícias somente com documentação oficial autorizada.
-- Avaliar opcionalmente um LLM real em experimento controlado e separado.
+## Arquitetura híbrida implementada
 
-## Instalação e execução no Windows PowerShell
+```mermaid
+flowchart TD
+    A[Mensagem do cliente] --> B[Validação Pydantic]
+    B --> C[Regras determinísticas]
+    C --> D{Regra aplicável?}
+    D -->|Sim| E[Resposta autorizada ou escalonamento]
+    D -->|Não| F[TF-IDF + LogisticRegression]
+    F --> G{Confiança e escopo aceitos?}
+    G -->|Não| H[Escalonamento humano simulado]
+    G -->|Sim| I[Recuperação lexical da FAQ]
+    I --> J{Fonte relevante e não ambígua?}
+    J -->|Não| H
+    J -->|Sim| K{LLM habilitada?}
+    K -->|Não, padrão| H
+    K -->|Sim| L[LLM com contexto autorizado]
+    L --> M{Citação e resposta verificáveis?}
+    M -->|Não| H
+    M -->|Sim| N[Resposta fundamentada]
+    E --> O[Auditoria e resposta da API]
+    H --> O
+    N --> O
+```
 
-Requer Python 3.10 ou superior. A partir da raiz do repositório:
+Precedência efetiva: regras → ML → recuperação → LLM opcional → humano. O ML
+classifica e roteia, mas não autoriza políticas. A LLM fica desligada por padrão
+e nenhuma LLM real foi avaliada neste estudo.
+
+## Stack tecnológica
+
+| Camada | Tecnologias |
+| --- | --- |
+| Backend | Python ≥ 3.10, FastAPI, Pydantic, Uvicorn |
+| Machine Learning | scikit-learn, TF-IDF, LogisticRegression |
+| Recuperação | TF-IDF e similaridade de cosseno sobre FAQ local |
+| LLM opcional | Adaptador HTTP compatível com chat completions, desabilitado por padrão |
+| Frontend | React 19, TypeScript, Vite 7, CSS responsivo |
+| Testes | pytest, Vitest, Testing Library, JSDOM |
+
+O ambiente da validação final utilizou Python 3.14.3, Node.js 24.11.1 e npm
+11.14.1. O Vite instalado requer Node.js `^20.19.0` ou `>=22.12.0`.
+
+## Estrutura do repositório
+
+```text
+backend/
+  app/                  API, regras, ML, recuperação, LLM e schemas
+  tests/                testes unitários e de integração
+data/                   dataset sintético versionado, 125 mensagens
+docs/                   análises, avaliações e documentação final
+examples/               amostra sintética inicial
+frontend/
+  src/                  chat, explicabilidade, dashboard e testes
+knowledge/              FAQ fictícia autorizada
+scripts/                avaliação ML e comparação de roteamento
+pyproject.toml           dependências e configuração Python
+```
+
+## Instalação no Windows PowerShell
+
+Pré-requisitos:
+
+- Python 3.10 ou superior;
+- Node.js compatível com Vite 7;
+- Git, apenas para clonar e versionar localmente.
+
+Na raiz do repositório:
 
 ```powershell
 python -m venv .venv
 .\.venv\Scripts\Activate.ps1
 python -m pip install --upgrade pip
 python -m pip install -e ".[test]"
+
+Set-Location frontend
+npm install
+Set-Location ..
+```
+
+Nenhuma chave é necessária no modo padrão. Os arquivos `.env.example` documentam
+somente configurações opcionais e não contêm segredos.
+
+## Execução
+
+Terminal 1 — backend, a partir da raiz:
+
+```powershell
+.\.venv\Scripts\Activate.ps1
+$env:LLM_ENABLED = "false"
 python -m uvicorn backend.app.main:app --reload
 ```
 
-A API estará em `http://127.0.0.1:8000` e a documentação interativa em
-`http://127.0.0.1:8000/docs`. Mantenha esse terminal aberto.
+- API: `http://127.0.0.1:8000`
+- OpenAPI/Swagger: `http://127.0.0.1:8000/docs`
 
-Em um segundo PowerShell, instale e inicie o frontend:
+Terminal 2 — frontend:
 
 ```powershell
-cd frontend
-npm install
+Set-Location frontend
 npm run dev
 ```
 
-A interface estará em `http://127.0.0.1:5173`. Por padrão ela usa a API em
-`http://127.0.0.1:8000`. Para alterar somente em desenvolvimento:
+- Interface: `http://127.0.0.1:5173`
+- API padrão do frontend: `http://127.0.0.1:8000`
 
-```powershell
-$env:VITE_API_URL = "http://127.0.0.1:8000"
-npm run dev
-```
+O CORS aceita exclusivamente as origens locais `http://127.0.0.1:5173` e
+`http://localhost:5173`.
 
-Exemplos em outro terminal PowerShell:
+## Exemplos da API
+
+Saúde:
 
 ```powershell
 Invoke-RestMethod -Method Get -Uri "http://127.0.0.1:8000/health"
+```
 
+Mensagem coberta por regra:
+
+```powershell
 $body = @{ message = "Onde vejo o rastreio?" } | ConvertTo-Json
 Invoke-RestMethod -Method Post `
   -Uri "http://127.0.0.1:8000/support/messages" `
@@ -77,46 +153,117 @@ Invoke-RestMethod -Method Post `
   -Body $body
 ```
 
-Para executar os testes do backend, a partir da raiz:
+Mensagem sem política autorizada:
+
+```powershell
+$body = @{ message = "Meu cartão foi recusado mesmo com limite" } | ConvertTo-Json
+Invoke-RestMethod -Method Post `
+  -Uri "http://127.0.0.1:8000/support/messages" `
+  -ContentType "application/json" `
+  -Body $body
+```
+
+A resposta inclui `correlation_id`, rota, intenção, resposta segura, indicador de
+escalonamento e auditoria com motivo, duração, versão do modelo e fontes quando
+aplicável.
+
+## Testes e reprodução dos experimentos
+
+Backend:
 
 ```powershell
 python -m pytest
 ```
 
-Para executar testes e build do frontend:
-
-```powershell
-cd frontend
-npm test
-npm run build
-```
-
-Para reproduzir as métricas e a matriz de confusão do experimento:
+Avaliação do classificador e comparação de estratégias:
 
 ```powershell
 python scripts/evaluate_ml.py
 python scripts/compare_routing.py
 ```
 
-Os limiares experimentais podem ser configurados antes de iniciar a API:
+Frontend:
 
 ```powershell
-$env:ML_CONFIDENCE_THRESHOLD = "0.35"
-$env:ML_MIN_KNOWN_TOKEN_RATIO = "0.20"
+Set-Location frontend
+npm test
+npm run build
 ```
 
-Metodologia, resultados observados e limitações estão em
-`docs/avaliacao-ml.md`. Recuperação, integração opcional, controles e riscos do
-LLM estão em `docs/avaliacao-llm.md`.
+## Resultados observados
 
-## Limites atuais
+### Classificador
 
-- Apenas orientação genérica de rastreio possui resposta automática autorizada.
-- Trocas e reembolsos são reconhecidos, mas escalonados por falta de política autorizada.
-- O classificador identifica cinco intenções, mas não autoriza respostas.
-- Não existe consulta a pedidos, pagamentos, clientes ou serviços externos.
-- No modo padrão não são usados dados pessoais reais, chaves ou chamadas de LLM.
-- As probabilidades do modelo não são calibradas e o dataset é sintético.
-- O LLM é opcional e desligado por padrão; os testes não fazem chamadas externas.
-- O dashboard exibe somente resultados sintéticos já medidos; não apresenta
-  CSAT, economia, resolução ou outras métricas de produção.
+Dataset sintético balanceado com 125 mensagens, 25 por classe, e divisão
+estratificada reproduzível com seed 42: 87 treino, 19 validação e 19 teste.
+
+| Conjunto | Accuracy | Precision macro | Recall macro | Macro F1 |
+| --- | ---: | ---: | ---: | ---: |
+| Validação, 19 casos | 0,579 | 0,567 | 0,567 | 0,559 |
+| Teste, 19 casos | 0,684 | 0,733 | 0,700 | 0,689 |
+
+A matriz de teste soma 19 observações e 13 acertos na diagonal. A meta futura de
+macro F1 ≥ 0,80 não foi atingida.
+
+### Comparação preliminar
+
+| Estratégia | Cobertos | Acertos | Accuracy total | Cobertura |
+| --- | ---: | ---: | ---: | ---: |
+| Regras isoladas | 4/19 | 3/19 | 0,158 | 0,211 |
+| Regras + ML com thresholds | 4/19 | 3/19 | 0,158 | 0,211 |
+| Regras + ML bruto, diagnóstico | 19/19 | 12/19 | 0,632 | 1,000 |
+
+O ML bruto ignora thresholds e não representa a política segura da API. No teste
+pequeno, o ML não ampliou a cobertura após a aplicação dos controles.
+
+### Validação de engenharia
+
+- Backend: 41 testes aprovados na validação final.
+- Frontend: 6 testes aprovados em 3 arquivos.
+- Build do frontend: concluído com 36 módulos transformados.
+- Integração HTTP local: frontend 200, API 200 e CORS local confirmado.
+- LLM real: não executada nem avaliada.
+
+Resultados detalhados: [relatório final](docs/relatorio-final-m1d1.md),
+[evidências](docs/evidencias.md) e [avaliação ML](docs/avaliacao-ml.md).
+
+## Limitações e riscos
+
+- dataset pequeno, balanceado artificialmente e inteiramente sintético;
+- teste com apenas 19 exemplos;
+- probabilidades da regressão logística não calibradas;
+- detector de fora de escopo e thresholds heurísticos;
+- FAQ fictícia com apenas três trechos;
+- recuperação lexical sensível ao vocabulário;
+- LLM real não avaliada;
+- validações de segurança baseadas em regras e sobreposição lexical;
+- contador de chamadas e orçamento em memória por processo;
+- escalonamento humano apenas simulado;
+- ausência de autenticação, persistência e integrações de e-commerce;
+- nenhuma evidência de redução real de tempo, custo ou melhoria de satisfação.
+
+## Conclusão e próximos passos
+
+A implementação comprova a viabilidade técnica de uma prova de conceito híbrida,
+local, auditável e de baixo custo. Ela não comprova viabilidade operacional ou
+retorno financeiro. A recomendação acadêmica é preservar regras e fallback
+humano, ampliar e revisar dados representativos, calibrar thresholds, substituir
+políticas fictícias por fontes oficiais e executar avaliação humana antes de
+qualquer piloto. Uma LLM real deve ser avaliada somente em experimento separado,
+com orçamento, privacidade e critérios de segurança aprovados.
+
+## Documentação
+
+- [Relatório acadêmico final](docs/relatorio-final-m1d1.md)
+- [Evidências reproduzíveis](docs/evidencias.md)
+- [Arquitetura técnica](docs/arquitetura-tecnica.md)
+- [Metodologia experimental](docs/metodologia-experimental.md)
+- [Guia de execução](docs/guia-execucao.md)
+- [Avaliação do classificador](docs/avaliacao-ml.md)
+- [Avaliação da integração opcional com LLM](docs/avaliacao-llm.md)
+
+## Uso responsável
+
+Este repositório é exclusivamente acadêmico. Não utilize suas políticas,
+thresholds, dataset ou respostas como regras reais de uma loja. Não inclua dados
+pessoais ou credenciais no projeto.
