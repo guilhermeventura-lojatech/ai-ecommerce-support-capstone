@@ -18,21 +18,21 @@ Projeto acadêmico de avaliação e prototipação de alternativas de IA para at
 ## Estrutura
 - `docs/` — análise, critérios, riscos e arquitetura.
 - `knowledge/` — exemplos **fictícios** de FAQs para futura prova de conceito.
-- `backend/` — espaço reservado para a API e os testes.
-- `frontend/` — espaço reservado para interface demonstrativa.
+- `backend/` — API FastAPI, regras, ML, recuperação, integração opcional e testes.
+- `frontend/` — interface demonstrativa React + Vite + TypeScript.
 - `examples/` — exemplos de solicitações sintéticas.
 
 ## Estado atual
-**Etapa 3: recuperação e LLM controlado.** A API preserva regras e classificação,
-recupera trechos da FAQ autorizada por TF-IDF e possui integração opcional com
-LLM. A integração fica desligada por padrão e todo caso sem evidência verificável
-é escalonado. Não há frontend ou consulta a sistemas reais.
+**Etapa 4: experiência demonstrativa.** A API preserva regras, classificação,
+recuperação e integração opcional. O frontend oferece chat, explicabilidade,
+dashboard com resultados medidos e narrativa acadêmica. A LLM permanece
+desligada por padrão e não há consulta a sistemas reais.
 
 ## Próximos passos
-- Implementar motor de regras e casos de teste.
-- Avaliar classificador de intenções sobre exemplos sintéticos.
-- Avaliar opcionalmente um LLM real autorizado, mantendo limites e saída segura.
-- Comparar desempenho, custos e riscos; registrar as evidências.
+- Validar a experiência com usuários e critérios acadêmicos.
+- Ampliar dados rotulados antes de recalibrar o classificador.
+- Substituir políticas fictícias somente com documentação oficial autorizada.
+- Avaliar opcionalmente um LLM real em experimento controlado e separado.
 
 ## Instalação e execução no Windows PowerShell
 
@@ -47,7 +47,23 @@ python -m uvicorn backend.app.main:app --reload
 ```
 
 A API estará em `http://127.0.0.1:8000` e a documentação interativa em
-`http://127.0.0.1:8000/docs`.
+`http://127.0.0.1:8000/docs`. Mantenha esse terminal aberto.
+
+Em um segundo PowerShell, instale e inicie o frontend:
+
+```powershell
+cd frontend
+npm install
+npm run dev
+```
+
+A interface estará em `http://127.0.0.1:5173`. Por padrão ela usa a API em
+`http://127.0.0.1:8000`. Para alterar somente em desenvolvimento:
+
+```powershell
+$env:VITE_API_URL = "http://127.0.0.1:8000"
+npm run dev
+```
 
 Exemplos em outro terminal PowerShell:
 
@@ -61,10 +77,18 @@ Invoke-RestMethod -Method Post `
   -Body $body
 ```
 
-Para executar os testes automatizados:
+Para executar os testes do backend, a partir da raiz:
 
 ```powershell
 python -m pytest
+```
+
+Para executar testes e build do frontend:
+
+```powershell
+cd frontend
+npm test
+npm run build
 ```
 
 Para reproduzir as métricas e a matriz de confusão do experimento:
@@ -94,3 +118,5 @@ LLM estão em `docs/avaliacao-llm.md`.
 - No modo padrão não são usados dados pessoais reais, chaves ou chamadas de LLM.
 - As probabilidades do modelo não são calibradas e o dataset é sintético.
 - O LLM é opcional e desligado por padrão; os testes não fazem chamadas externas.
+- O dashboard exibe somente resultados sintéticos já medidos; não apresenta
+  CSAT, economia, resolução ou outras métricas de produção.
